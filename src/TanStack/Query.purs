@@ -2,8 +2,6 @@ module React.Query where
 
 import Prelude
 
-import Control.Promise (Promise)
-import Control.Promise (fromAff, toAffE) as Promise
 import Data.Array (snoc) as Array
 import Data.DateTime.Instant (Instant)
 import Data.Either (Either(..))
@@ -23,6 +21,9 @@ import Literals.Undefined (undefined)
 import Network.RemoteData (RemoteData(..)) as RD
 import Network.RemoteData (RemoteData)
 import Partial.Unsafe (unsafeCrashWith)
+import Promise (Promise)
+import Promise (class Flatten) as Promise
+import Promise.Aff (fromAff, toAffE) as Promise
 import Prim.Row (class Union)
 import React.Basic (JSX, ReactComponent)
 import React.Basic.Hooks (bind, element) as React
@@ -48,7 +49,7 @@ foreign import useQueryImpl :: forall input output. EffectFn1 input { data :: ou
 
 data FetchStatus = Fetching | Paused | Idle
 
-useQuery :: forall opts opts_ @output. Union opts opts_ (UseQueryArgs Id output) => { | opts } -> Hook UseQuery { data :: RemoteData Error output, fetchStatus :: FetchStatus }
+useQuery :: forall opts opts_ @output. Promise.Flatten output output => Union opts opts_ (UseQueryArgs Id output) => { | opts } -> Hook UseQuery { data :: RemoteData Error output, fetchStatus :: FetchStatus }
 useQuery args' = React.do
   let
     args :: { | UseQueryArgs Opt output }
@@ -56,7 +57,7 @@ useQuery args' = React.do
     argsImpl =
       args # RB.build
         ( RB.modify (Proxy :: Proxy "queryFn")
-            (pseudoMap Promise.fromAff)
+            (pseudoMap (Promise.fromAff))
         )
   result <- unsafeHook (runEffectFn1 useQueryImpl argsImpl)
   pure
@@ -116,6 +117,7 @@ type UseMutationResult input output =
 
 useMutation ::
   forall opts opts_ input @output ctx.
+  Promise.Flatten output output =>
   Union opts opts_ (UseMutationArgs Id input output ctx) =>
   { | opts } ->
   Hook UseMutation (UseMutationResult input output)
