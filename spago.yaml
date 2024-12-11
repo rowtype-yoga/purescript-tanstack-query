@@ -1,7 +1,7 @@
 package:
   name: tanstack-query
   dependencies:
-    - aff: ">=8.0.0 <9.0.0"
+    - aff: ">=7.0.0 <9.0.0"
     - arrays: ">=7.3.0 <8.0.0"
     - console: ">=6.1.0 <7.0.0"
     - datetime: ">=6.1.0 <7.0.0"
