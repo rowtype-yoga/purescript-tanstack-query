@@ -95,8 +95,75 @@
           ]
         },
         "test": {
-          "dependencies": [],
-          "build_plan": []
+          "dependencies": [
+            "react-testing-library"
+          ],
+          "build_plan": [
+            "aff",
+            "aff-promise",
+            "ansi",
+            "arrays",
+            "avar",
+            "bifunctors",
+            "catenable-lists",
+            "const",
+            "contravariant",
+            "control",
+            "datetime",
+            "distributive",
+            "effect",
+            "either",
+            "enums",
+            "exceptions",
+            "exists",
+            "foldable-traversable",
+            "foreign",
+            "fork",
+            "free",
+            "functions",
+            "functors",
+            "gen",
+            "identity",
+            "integers",
+            "invariant",
+            "js-date",
+            "lazy",
+            "lists",
+            "maybe",
+            "media-types",
+            "mmorph",
+            "newtype",
+            "nonempty",
+            "now",
+            "nullable",
+            "numbers",
+            "ordered-collections",
+            "orders",
+            "parallel",
+            "partial",
+            "pipes",
+            "prelude",
+            "profunctor",
+            "react-basic",
+            "react-testing-library",
+            "record",
+            "refs",
+            "safe-coerce",
+            "spec",
+            "st",
+            "strings",
+            "tailrec",
+            "transformers",
+            "tuples",
+            "type-equality",
+            "unfoldable",
+            "unsafe-coerce",
+            "web-dom",
+            "web-events",
+            "web-file",
+            "web-html",
+            "web-storage"
+          ]
         }
       }
     },
@@ -653,6 +720,16 @@
         "foreign"
       ]
     },
+    "ansi": {
+      "type": "registry",
+      "version": "7.0.0",
+      "integrity": "sha256-ZMB6HD+q9CXvn9fRCmJ8dvuDrOVHcjombL3oNOerVnE=",
+      "dependencies": [
+        "foldable-traversable",
+        "lists",
+        "strings"
+      ]
+    },
     "arrays": {
       "type": "registry",
       "version": "7.3.0",
@@ -682,6 +759,19 @@
         "console",
         "effect",
         "prelude"
+      ]
+    },
+    "avar": {
+      "type": "registry",
+      "version": "5.0.0",
+      "integrity": "sha256-e7hf0x4hEpcygXP0LtvfvAQ49Bbj2aWtZT3gqM///0A=",
+      "dependencies": [
+        "aff",
+        "effect",
+        "either",
+        "exceptions",
+        "functions",
+        "maybe"
       ]
     },
     "bifunctors": {
@@ -899,6 +989,14 @@
       "integrity": "sha256-gp5M1eww2WamLPT9o9SBLG1BUoU3KLYx8JjXqvYBaXs=",
       "dependencies": []
     },
+    "fork": {
+      "type": "registry",
+      "version": "6.0.0",
+      "integrity": "sha256-X7u0SuCvFbLbzuNEKLBNuWjmcroqMqit4xEzpQwAP7E=",
+      "dependencies": [
+        "aff"
+      ]
+    },
     "free": {
       "type": "registry",
       "version": "7.1.0",
@@ -1091,6 +1189,16 @@
         "prelude"
       ]
     },
+    "mmorph": {
+      "type": "registry",
+      "version": "7.0.0",
+      "integrity": "sha256-urZlZNNqGeQFe5D/ClHlR8QgGBNHTMFPtJ5S5IpflTQ=",
+      "dependencies": [
+        "free",
+        "functors",
+        "transformers"
+      ]
+    },
     "newtype": {
       "type": "registry",
       "version": "5.0.0",
@@ -1192,6 +1300,20 @@
       "integrity": "sha256-fwXerld6Xw1VkReh8yeQsdtLVrjfGiVuC5bA1Wyo/J4=",
       "dependencies": []
     },
+    "pipes": {
+      "type": "registry",
+      "version": "8.0.0",
+      "integrity": "sha256-kvfqGM4cPA/wCcBHbp5psouFw5dZGvku2462x7ZBwSY=",
+      "dependencies": [
+        "aff",
+        "lists",
+        "mmorph",
+        "prelude",
+        "tailrec",
+        "transformers",
+        "tuples"
+      ]
+    },
     "prelude": {
       "type": "registry",
       "version": "6.0.1",
@@ -1292,6 +1414,32 @@
         "web-html"
       ]
     },
+    "react-testing-library": {
+      "type": "registry",
+      "version": "4.0.1",
+      "integrity": "sha256-MiR3foB3jbZuz7sFnGp2yCR9Y3vOByu/iGQSxZ/jNKA=",
+      "dependencies": [
+        "aff",
+        "aff-promise",
+        "control",
+        "effect",
+        "exceptions",
+        "foldable-traversable",
+        "foreign",
+        "functions",
+        "identity",
+        "maybe",
+        "prelude",
+        "react-basic",
+        "spec",
+        "strings",
+        "transformers",
+        "unsafe-coerce",
+        "web-dom",
+        "web-events",
+        "web-html"
+      ]
+    },
     "record": {
       "type": "registry",
       "version": "4.0.0",
@@ -1332,6 +1480,40 @@
       "integrity": "sha256-a1ibQkiUcbODbLE/WAq7Ttbbh9ex+x33VCQ7GngKudU=",
       "dependencies": [
         "unsafe-coerce"
+      ]
+    },
+    "spec": {
+      "type": "registry",
+      "version": "8.1.1",
+      "integrity": "sha256-EM7UfQIaSgiw13LJ4ZASkfYmmRDKIlec3nYbGKFqGhk=",
+      "dependencies": [
+        "aff",
+        "ansi",
+        "arrays",
+        "avar",
+        "bifunctors",
+        "control",
+        "datetime",
+        "effect",
+        "either",
+        "exceptions",
+        "foldable-traversable",
+        "fork",
+        "identity",
+        "integers",
+        "lists",
+        "maybe",
+        "newtype",
+        "now",
+        "ordered-collections",
+        "parallel",
+        "pipes",
+        "prelude",
+        "refs",
+        "strings",
+        "tailrec",
+        "transformers",
+        "tuples"
       ]
     },
     "st": {

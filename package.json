@@ -1,0 +1,14 @@
+{
+  "name": "purescript-tanstack-query",
+  "module": "test.ts",
+  "type": "module",
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "vitest": "^2.1.8"
+  }
+}

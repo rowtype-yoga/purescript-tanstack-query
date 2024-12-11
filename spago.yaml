@@ -1,21 +1,28 @@
 package:
   name: tanstack-query
   dependencies:
-    - console
-    - effect
-    - forgetmenot
-    - literals
-    - prelude
-    - react-basic
-    - react-basic-hooks
-    - record
-    - remotedata
-    - undefined-is-not-a-problem
-    - yoga-json
+    - console: ">=6.1.0 <7.0.0"
+    - effect: ">=4.0.0 <5.0.0"
+    - forgetmenot: ">=0.1.0 <0.2.0"
+    - literals: ">=1.0.2 <2.0.0"
+    - prelude: ">=6.0.1 <7.0.0"
+    - react-basic: ">=17.0.0 <18.0.0"
+    - react-basic-hooks: ">=8.2.0 <9.0.0"
+    - record: ">=4.0.0 <5.0.0"
+    - remotedata: ">=5.0.1 <6.0.0"
+    - undefined-is-not-a-problem: ">=1.1.0 <2.0.0"
+    - yoga-json: ">=5.1.0 <6.0.0"
   test:
     main: Test.Main
-    dependencies: []
+    dependencies:
+      - react-testing-library
 workspace:
   packageSet:
     registry: 61.3.1
   extraPackages: {}
+publish:
+  version: 1.0.0
+  license: WTFPL
+  location:
+    githubOwner: rowtype-yoga
+    githubRepo: purescript-tanstack-query
