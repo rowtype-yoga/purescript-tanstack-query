@@ -5,17 +5,52 @@
         "path": "./",
         "core": {
           "dependencies": [
-            "console",
-            "effect",
-            "forgetmenot",
-            "literals",
-            "prelude",
-            "react-basic",
-            "react-basic-hooks",
-            "record",
-            "remotedata",
-            "undefined-is-not-a-problem",
-            "yoga-json"
+            "aff",
+            "aff-promise",
+            "arrays",
+            {
+              "console": ">=6.1.0 <7.0.0"
+            },
+            "datetime",
+            {
+              "effect": ">=4.0.0 <5.0.0"
+            },
+            "either",
+            "exceptions",
+            "foldable-traversable",
+            "foreign",
+            {
+              "forgetmenot": ">=0.1.0 <0.2.0"
+            },
+            {
+              "literals": ">=1.0.2 <2.0.0"
+            },
+            "maybe",
+            "nullable",
+            "partial",
+            {
+              "prelude": ">=6.0.1 <7.0.0"
+            },
+            {
+              "react-basic": ">=17.0.0 <18.0.0"
+            },
+            {
+              "react-basic-hooks": ">=8.2.0 <9.0.0"
+            },
+            {
+              "record": ">=4.0.0 <5.0.0"
+            },
+            {
+              "remotedata": ">=5.0.1 <6.0.0"
+            },
+            "typelevel-prelude",
+            {
+              "undefined-is-not-a-problem": ">=1.1.0 <2.0.0"
+            },
+            "unsafe-coerce",
+            {
+              "yoga-json": ">=5.1.0 <6.0.0"
+            }
           ],
           "build_plan": [
             "aff",

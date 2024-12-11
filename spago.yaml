@@ -1,6 +1,19 @@
 package:
   name: tanstack-query
   dependencies:
+    - aff
+    - aff-promise
+    - arrays
+    - datetime
+    - either
+    - exceptions
+    - foldable-traversable
+    - foreign
+    - maybe
+    - nullable
+    - partial
+    - typelevel-prelude
+    - unsafe-coerce
     - console: ">=6.1.0 <7.0.0"
     - effect: ">=4.0.0 <5.0.0"
     - forgetmenot: ">=0.1.0 <0.2.0"
@@ -16,13 +29,13 @@ package:
     main: Test.Main
     dependencies:
       - react-testing-library
+  publish:
+    version: 1.0.0
+    license: WTFPL
+    location:
+      githubOwner: rowtype-yoga
+      githubRepo: purescript-tanstack-query
 workspace:
   packageSet:
     registry: 61.3.1
   extraPackages: {}
-publish:
-  version: 1.0.0
-  license: WTFPL
-  location:
-    githubOwner: rowtype-yoga
-    githubRepo: purescript-tanstack-query
