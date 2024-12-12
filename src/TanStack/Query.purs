@@ -1,4 +1,4 @@
-module React.Query where
+module TanStack.Query where
 
 import Prelude
 

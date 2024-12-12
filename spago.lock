@@ -162,7 +162,12 @@
         },
         "test": {
           "dependencies": [
-            "react-testing-library"
+            "react-basic",
+            "react-basic-dom",
+            "react-basic-dom-beta",
+            "react-basic-hooks",
+            "react-testing-library",
+            "vitest"
           ],
           "build_plan": [
             "aff",
@@ -172,6 +177,7 @@
             "avar",
             "bifunctors",
             "catenable-lists",
+            "console",
             "const",
             "contravariant",
             "control",
@@ -184,15 +190,20 @@
             "exists",
             "foldable-traversable",
             "foreign",
+            "foreign-object",
+            "forgetmenot",
             "fork",
             "free",
             "functions",
             "functors",
             "gen",
             "identity",
+            "indexed-monad",
             "integers",
             "invariant",
             "js-date",
+            "js-promise",
+            "js-promise-aff",
             "lazy",
             "lists",
             "maybe",
@@ -211,6 +222,9 @@
             "prelude",
             "profunctor",
             "react-basic",
+            "react-basic-dom",
+            "react-basic-dom-beta",
+            "react-basic-hooks",
             "react-testing-library",
             "record",
             "refs",
@@ -222,20 +236,25 @@
             "transformers",
             "tuples",
             "type-equality",
+            "typelevel-prelude",
             "unfoldable",
             "unsafe-coerce",
+            "unsafe-reference",
+            "vitest",
             "web-dom",
             "web-events",
             "web-file",
             "web-html",
-            "web-storage"
+            "web-storage",
+            "web-touchevents",
+            "web-uievents"
           ]
         }
       }
     },
     "package_set": {
       "address": {
-        "registry": "61.3.1"
+        "registry": "61.4.0"
       },
       "compiler": ">=0.15.15 <0.16.0",
       "content": {
@@ -663,6 +682,7 @@
         "systemd-journald": "0.3.0",
         "tagged": "4.0.2",
         "tailrec": "6.1.0",
+        "tanstack-query": "1.0.0",
         "tecton": "0.2.1",
         "tecton-halogen": "0.2.0",
         "test-unit": "17.0.0",
@@ -712,6 +732,7 @@
         "vectors": "2.1.0",
         "versions": "7.0.0",
         "visx": "0.0.2",
+        "vitest": "1.0.0",
         "web-clipboard": "6.0.0",
         "web-cssom": "2.0.0",
         "web-cssom-view": "0.1.0",
@@ -1470,6 +1491,50 @@
         "record"
       ]
     },
+    "react-basic-dom": {
+      "type": "registry",
+      "version": "7.0.0",
+      "integrity": "sha256-a9M8K2iVA3AAhJQGj36bapcdmGJk9ichLghK4/ZFkB0=",
+      "dependencies": [
+        "arrays",
+        "effect",
+        "foldable-traversable",
+        "foreign-object",
+        "maybe",
+        "nullable",
+        "prelude",
+        "react-basic",
+        "record",
+        "unsafe-coerce",
+        "web-dom",
+        "web-events",
+        "web-file",
+        "web-html"
+      ]
+    },
+    "react-basic-dom-beta": {
+      "type": "registry",
+      "version": "0.1.1",
+      "integrity": "sha256-r3kCJ0N9a3ODd6VaVl2ELL1rDw40i+5cjcJLnJu306Q=",
+      "dependencies": [
+        "datetime",
+        "effect",
+        "forgetmenot",
+        "functions",
+        "nullable",
+        "prelude",
+        "react-basic",
+        "react-basic-hooks",
+        "record",
+        "type-equality",
+        "typelevel-prelude",
+        "unsafe-coerce",
+        "web-dom",
+        "web-events",
+        "web-html",
+        "web-touchevents"
+      ]
+    },
     "react-basic-hooks": {
       "type": "registry",
       "version": "8.2.0",
@@ -1761,6 +1826,25 @@
         "unsafe-coerce"
       ]
     },
+    "vitest": {
+      "type": "registry",
+      "version": "1.0.0",
+      "integrity": "sha256-VsI3JzBKITLv8Qh0BujPiBDtJsqKS2QpKlPcV9dkKl0=",
+      "dependencies": [
+        "aff",
+        "effect",
+        "exceptions",
+        "js-promise",
+        "js-promise-aff",
+        "maybe",
+        "nullable",
+        "prelude",
+        "transformers",
+        "unsafe-coerce",
+        "web-dom",
+        "web-html"
+      ]
+    },
     "web-dom": {
       "type": "registry",
       "version": "6.0.0",
@@ -1808,6 +1892,22 @@
       "dependencies": [
         "nullable",
         "web-events"
+      ]
+    },
+    "web-touchevents": {
+      "type": "registry",
+      "version": "4.0.0",
+      "integrity": "sha256-nDHMyXbkDfCEp299RLHCqj5HCDgWXFFy80lGoGjSzms=",
+      "dependencies": [
+        "web-uievents"
+      ]
+    },
+    "web-uievents": {
+      "type": "registry",
+      "version": "5.0.0",
+      "integrity": "sha256-5I+ut9JYno3wowti3vJGs1afKCm1ucppKuy+zhuSyss=",
+      "dependencies": [
+        "web-html"
       ]
     },
     "yoga-json": {
