@@ -10,6 +10,7 @@ package:
     - exceptions: ">=6.1.0 <7.0.0"
     - foldable-traversable: ">=6.0.0 <7.0.0"
     - foreign: ">=7.0.0 <8.0.0"
+    - functions: ">=6.0.0 <7.0.0"
     - forgetmenot: ">=0.1.0 <0.2.0"
     - js-promise: ">=1.0.0 <2.0.0"
     - js-promise-aff: ">=1.0.0 <2.0.0"
@@ -36,7 +37,7 @@ package:
       - react-testing-library
       - vitest
   publish:
-    version: 2.0.0
+    version: 2.0.1
     license: WTFPL
     location:
       githubOwner: rowtype-yoga
