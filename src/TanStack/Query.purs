@@ -5,9 +5,9 @@ import Prelude
 import Data.Array (snoc) as Array
 import Data.DateTime.Instant (Instant)
 import Data.Either (Either(..))
-import Data.Function.Uncurried (Fn2, runFn2)
+import Data.Function.Uncurried (Fn2, mkFn4, runFn2)
 import Data.Maybe (Maybe(..))
-import Data.Nullable (Nullable)
+import Data.Nullable (Nullable, toNullable)
 import Data.Nullable (toMaybe) as Nullable
 import Data.Semigroup.Foldable (intercalateMap)
 import Data.Undefined.NoProblem (Opt, pseudoMap)
@@ -21,7 +21,7 @@ import ForgetMeNot (Id)
 import Literals.Undefined (undefined)
 import Network.RemoteData (RemoteData(..)) as RD
 import Network.RemoteData (RemoteData)
-import Partial.Unsafe (unsafeCrashWith)
+import Effect.Exception.Unsafe (unsafeThrow)
 import Promise (Promise)
 import Promise (class Flatten) as Promise
 import Promise.Aff (fromAff, toAffE) as Promise
@@ -57,13 +57,10 @@ appendQueryKey qk segment = unsafeToQueryKey (Array.snoc (unsafeCoerce qk) (JSON
 
 infixl 4 appendQueryKey as %
 
-foreign import hashKeyImpl :: Fn2 (QueryKey -> String) QueryKey String
+foreign import hashKeyImpl :: Fn2 Unit QueryKey String
 
 hashKey :: QueryKey -> String
-hashKey = runFn2 hashKeyImpl hashKeyPure
-  where
-  hashKeyPure :: QueryKey -> String
-  hashKeyPure = unsafeCoerce >>> unsafeStringify
+hashKey = runFn2 hashKeyImpl unit
 
 -- | FetchStatus / QueryStatus
 
@@ -74,7 +71,7 @@ parseFetchStatus = case _ of
   "fetching" -> Fetching
   "paused" -> Paused
   "idle" -> Idle
-  _ -> unsafeCrashWith "Invalid fetchStatus"
+  s -> unsafeThrow ("Invalid fetchStatus: " <> s)
 
 data QueryStatus = QueryPending | QueryError | QuerySuccess
 
@@ -83,7 +80,7 @@ parseQueryStatus = case _ of
   "pending" -> QueryPending
   "error" -> QueryError
   "success" -> QuerySuccess
-  _ -> unsafeCrashWith "Invalid query status"
+  s -> unsafeThrow ("Invalid query status: " <> s)
 
 -- | QueryClient
 
@@ -428,8 +425,8 @@ type UseInfiniteQueryArgs f output pageParam =
   ( queryKey :: f QueryKey
   , queryFn :: f ({ pageParam :: pageParam } -> Aff output)
   , initialPageParam :: f pageParam
-  , getNextPageParam :: f (output -> Array output -> pageParam)
-  , getPreviousPageParam :: f (output -> Array output -> pageParam)
+  , getNextPageParam :: f (output -> Array output -> pageParam -> Array pageParam -> Maybe pageParam)
+  , getPreviousPageParam :: f (output -> Array output -> pageParam -> Array pageParam -> Maybe pageParam)
   , enabled :: f Boolean
   , staleTime :: f Int
   , gcTime :: f Int
@@ -485,10 +482,16 @@ useInfiniteQuery args' = React.do
   let
     args :: { | UseInfiniteQueryArgs Opt output pageParam }
     args = unsafeCoerce args'
+    wrapPageParamFn fn = mkFn4 \lastPage allPages lastParam allParams ->
+      toNullable (fn lastPage allPages lastParam allParams)
     argsImpl =
       args # RB.build
         ( RB.modify (Proxy :: Proxy "queryFn")
             (pseudoMap (\fn -> mkEffectFn1 \ctx -> Promise.fromAff (fn ctx)))
+            >>> RB.modify (Proxy :: Proxy "getNextPageParam")
+              (pseudoMap wrapPageParamFn)
+            >>> RB.modify (Proxy :: Proxy "getPreviousPageParam")
+              (pseudoMap wrapPageParamFn)
         )
   result <- unsafeHook (runEffectFn1 useInfiniteQueryImpl argsImpl)
   pure
@@ -575,8 +578,8 @@ type UseSuspenseInfiniteQueryArgs f output pageParam =
   ( queryKey :: f QueryKey
   , queryFn :: f ({ pageParam :: pageParam } -> Aff output)
   , initialPageParam :: f pageParam
-  , getNextPageParam :: f (output -> Array output -> pageParam)
-  , getPreviousPageParam :: f (output -> Array output -> pageParam)
+  , getNextPageParam :: f (output -> Array output -> pageParam -> Array pageParam -> Maybe pageParam)
+  , getPreviousPageParam :: f (output -> Array output -> pageParam -> Array pageParam -> Maybe pageParam)
   , staleTime :: f Int
   , gcTime :: f Int
   , refetchInterval :: f Int
@@ -609,10 +612,16 @@ useSuspenseInfiniteQuery args' = React.do
   let
     args :: { | UseSuspenseInfiniteQueryArgs Opt output pageParam }
     args = unsafeCoerce args'
+    wrapPageParamFn fn = mkFn4 \lastPage allPages lastParam allParams ->
+      toNullable (fn lastPage allPages lastParam allParams)
     argsImpl =
       args # RB.build
         ( RB.modify (Proxy :: Proxy "queryFn")
             (pseudoMap (\fn -> mkEffectFn1 \ctx -> Promise.fromAff (fn ctx)))
+            >>> RB.modify (Proxy :: Proxy "getNextPageParam")
+              (pseudoMap wrapPageParamFn)
+            >>> RB.modify (Proxy :: Proxy "getPreviousPageParam")
+              (pseudoMap wrapPageParamFn)
         )
   result <- unsafeHook (runEffectFn1 useSuspenseInfiniteQueryImpl argsImpl)
   pure
@@ -638,6 +647,7 @@ type UseQueryOptions output =
   , enabled :: Opt Boolean
   , staleTime :: Opt Int
   , gcTime :: Opt Int
+  , retry :: Opt Int
   }
 
 type UseQueriesImplResult output =
@@ -659,6 +669,7 @@ useQueries queries = React.do
       , enabled: q.enabled
       , staleTime: q.staleTime
       , gcTime: q.gcTime
+      , retry: q.retry
       }
   results <- unsafeHook (runEffectFn1 useQueriesImpl { queries: jsQueries })
   pure $ results <#> \r ->

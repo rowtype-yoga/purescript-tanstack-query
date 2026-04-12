@@ -5,14 +5,12 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
     // plugins: [react()],
     test: {
-        // environment: 'happy-dom',
         environment: 'jsdom',
-        // browser: {
-        //     provider: 'playwright',
-        //     name: 'chromium',
-        //     enabled: true,
-        // },
-        // setupFiles: ['setupTests.ts'],
         include: ['output/Test.*Test/index.js'],
+        coverage: {
+            provider: 'v8',
+            include: ['output/TanStack.Query/index.js'],
+            reporter: ['text'],
+        },
     },
 })
