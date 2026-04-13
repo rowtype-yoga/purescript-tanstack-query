@@ -35,7 +35,9 @@
             {
               "forgetmenot": ">=0.1.0 <0.2.0"
             },
-            "functions",
+            {
+              "functions": ">=6.0.0 <7.0.0"
+            },
             {
               "js-promise": ">=1.0.0 <2.0.0"
             },
